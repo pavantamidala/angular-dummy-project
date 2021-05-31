@@ -1,0 +1,26 @@
+
+<div class="content">
+
+    <form #formData="ngForm" (ngSubmit)="clickHandle($event)">
+        
+        <label for="firstname">First Name:</label>
+        <input type="text" name="firstname" [(ngModel)]="user.firstname" id="firstname"> <br> <br>
+        <label for="lastname">Last Name:</label>
+        <input type="text" [(ngModel)]="user.lastname" name="lastname" id="lastname"> <br> <br>
+        <label for="number">Ph Number:</label>
+        <input type="number" [(ngModel)]="user.number" name="number" id="number"> <br> <br>
+        <label for="email"> Email:</label>
+        <input type="email" [(ngModel)]="user.email" name="email" id="email"> <br> <br>
+        <button type="submit">Submit</button>
+    </form>
+    <div class="user-data">
+        <div class="card" *ngFor="let user of allUsers">
+            <img class="placeholder" src="https://via.placeholder.com/150x55" alt="">
+            <h4 class="heading"> <b> {{user.firstname +" "+ user.lastname}} </b></h4>
+            <p> {{user.email}} </p>
+            <p> {{user.number}} </p>
+            <button class="edit-btn" type="submit" (click)="editHandle($event,user.id)" >Edit</button> 
+            <button type="submit" class="delete-btn" (click)="deleteHandle($event,user.id)"> Delete </button>
+        </div>
+    </div>
+</div>
