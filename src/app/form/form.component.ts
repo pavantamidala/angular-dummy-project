@@ -57,13 +57,13 @@ export class FormComponent {
   editHandle(id) {
     
     console.log(id);
-    let temp = this.allUsers.find((obj) => {
+    let editedUsers = this.allUsers.find((obj) => {
       return obj.id === id;
     });
-    this.user.firstName = temp.firstName;
-    this.user.lastName = temp.lastName;
-    this.user.number = temp.number;
-    this.user.email = temp.email;
+    this.user.firstName = editedUsers.firstName;
+    this.user.lastName = editedUsers.lastName;
+    this.user.number = editedUsers.number;
+    this.user.email = editedUsers.email;
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== id;
     });
