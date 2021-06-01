@@ -34,6 +34,7 @@ export class FormComponent {
     this.lastNameValidator(e.lastName)
     this.numberValidator(e.number)
     if(!this.firstNameFieldValidator && !this.lastNameFieldValidator && !this.numberFieldValidator){
+      e.id=this.date.getMilliseconds()+Math.random()
       this.allUsers.push(e);
       this.user.firstName = '';
       this.user.lastName = '';
@@ -44,6 +45,7 @@ export class FormComponent {
     
   }
   deleteHandle(id) {
+    debugger
     console.log(id);
      let response =  confirm("Do you want to delete the post?")
      if(response){
