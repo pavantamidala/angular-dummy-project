@@ -54,13 +54,12 @@ input {
 .delete-btn {
   margin-left: 25px;
   background-color: $danger;
-    @include base-button();
+  @include base-button();
 }
 .edit-btn {
   background-color: $primary;
-    @include base-button();
-    padding: 3px;
-
+  @include base-button();
+  padding: 3px;
 }
 .placeholder {
   width: 100%;
@@ -69,7 +68,7 @@ input {
   color: $danger;
   border: 1px solid red;
 }
-.alert-text{
+.alert-text {
   color: red;
 }
 form {

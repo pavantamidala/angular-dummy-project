@@ -5,7 +5,7 @@ interface User {
   lastName: string;
   number: string;
   email: string;
-  // profileImage:any;
+  
 }
 @Component({
   selector: 'app-form',
@@ -18,46 +18,48 @@ export class FormComponent implements OnInit {
   firstNameFieldValidator: Boolean = false;
   lastNameFieldValidator: Boolean = false;
   numberFieldValidator: Boolean = false;
+  showValidations: Boolean = true;
   user: User = {
     firstName: '',
     lastName: '',
     number: null,
     email: '',
-    
   };
 
   date = new Date();
   clickHandle(form) {
     console.log(form);
-    if(form.valid ){
+    debugger;
+    if (form.valid) {
       form.value.id = this.date.getMilliseconds() + Math.random();
       this.allUsers.push(form.value);
-      this.cleaningForm();
-      localStorage.setItem("allUsersArray",JSON.stringify(this.allUsers))
-      this.storingInLocalStorage()
+      this.clearingFormValues();
+      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+      this.storingInLocalStorage();
+      this.showValidations = false;
+    } else {
+      this.showValidations = true;
     }
   }
-  storingInLocalStorage(){  
-    const response =  localStorage.getItem("allUsersArray")
-    if(response === null){
-      localStorage.setItem("allUsersArray",JSON.stringify(this.allUsers))
-    }else{
-      const response = localStorage.getItem("allUsersArray")
-      this.allUsers = JSON.parse(response)
+  storingInLocalStorage() {
+    const response = localStorage.getItem('allUsersArray');
+    if (response === null) {
+      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+    } else {
+      const response = localStorage.getItem('allUsersArray');
+      this.allUsers = JSON.parse(response);
     }
   }
- ngOnInit(){
-   this.storingInLocalStorage()
- }
-  cleaningForm() {
+  ngOnInit() {
+    this.storingInLocalStorage();
+  }
+  clearingFormValues() {
     this.user.firstName = '';
     this.user.lastName = '';
     this.user.number = null;
     this.user.email = '';
-    
   }
   deleteHandle(id) {
-    
     console.log(id);
     const response = confirm('Do you want to delete the post?');
     if (response) {
@@ -80,5 +82,4 @@ export class FormComponent implements OnInit {
       return obj.id !== id;
     });
   }
-  
 }
