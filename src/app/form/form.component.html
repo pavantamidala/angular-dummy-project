@@ -1,35 +1,38 @@
 
 <div class="content">
 
-    <form #formData="ngForm" validate (ngSubmit)="clickHandle(formData.value)">
+    <form #formData="ngForm" (ngSubmit)="clickHandle(formData)">
         
         <label for="firstName">First Name:</label>
-        <input required type="text" name="firstName"  (ngModelChange)="firstNameValidator($event)" #firstName="ngModel" [(ngModel)]="user.firstName" id="firstName"> 
-        <div *ngIf="firstNameFieldValidator"  class="alert">
-                Firs Name is required.
+        <input required type="text" name="firstName"  #firstName="ngModel" [(ngModel)]="user.firstName" id="firstName" [class.alert]="formData.submitted && firstName.invalid"> 
+        <div *ngIf="firstName.invalid && formData.submitted" class="alert-text">
+                First Name is required.
         </div>
 
         <label for="lastName">Last Name:</label>
-        <input type="text" #lastName="ngModel" (ngModelChange)="lastNameValidator($event)"  [(ngModel)]="user.lastName" name="lastName" id="lastName">
-        <div *ngIf="lastNameFieldValidator" class="alert">
+        <input type="text" #lastName="ngModel" required [class.alert]="formData.submitted && lastName.invalid && !formData.valid" [(ngModel)]="user.lastName" name="lastName" id="lastName">
+        <div *ngIf="lastName.invalid && formData.submitted && !formData.valid" class="alert-text">
             Last Name is required.
         </div>
         <label for="number">Ph Number:</label>
-        <input type="number"  #number="ngModel" (ngModelChange)="numberValidator($event)"  [(ngModel)]="user.number" name="number" id="number">
-        <div *ngIf="numberFieldValidator" class="alert">
-            mobile number must be 10 numbers
+        <input type="text" required minlength="10"  [class.alert]="formData.submitted && number.invalid" #number="ngModel" [(ngModel)]="user.number" name="number" maxlength="10" id="number">
+        <div *ngIf="formData.submitted && number.invalid" class="alert-text">
+            Mobile number required
         </div>
-        <!-- <label for="image">Profile:</label>
-        <input type="file" name="profileImage" id="image" [(ngModel)]="user.profileImage" #profileImage = "ngModel" > -->
 
         <label for="email"> Email:</label>
-        <input  required type="email" [(ngModel)]="user.email" name="email" id="email"> <br> <br>
-        <button type="submit">Submit</button>
+        <input  required type="email" [(ngModel)]="user.email" [class.alert]="formData.submitted && email.invalid " #email="ngModel" name="email" id="email"> 
+        <div *ngIf=" email.invalid && formData.submitted" class="alert-text">
+        Email required
+        </div>
+        
+        <br> <br>
+        <button class="btn submit-btn" type="submit">Submit</button>
     </form>
     <div class="user-data">
         <div class="card" *ngFor="let user of allUsers">
             <img class="placeholder" src="https://via.placeholder.com/150x55" alt="">
-            <h4 class="heading"> <b> {{user.firstName +" "+ user.lastName}} </b></h4>
+            <h3 class="heading"> <b> {{user.firstName +" "+ user.lastName}} </b></h3>
             <p> {{user.email}} </p>
             <p> {{user.number}} </p>
             <button class="edit-btn" type="submit" (click)="editHandle(user.id)" >Edit</button> 
