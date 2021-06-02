@@ -5,7 +5,7 @@ $danger: red;
 
 @mixin base-button {
   border: none;
-  padding: 3px;
+  padding: 5px;
   color: white;
 }
 
@@ -53,24 +53,56 @@ input {
 }
 .delete-btn {
   margin-left: 25px;
+  width: 90px;
   background-color: $danger;
   @include base-button();
 }
 .edit-btn {
   background-color: $primary;
   @include base-button();
-  padding: 3px;
+  width: 55px;
 }
 .placeholder {
   width: 100%;
 }
 .alert {
   color: $danger;
-  border: 1px solid red;
+  border: 1px solid $danger;
 }
 .alert-text {
-  color: red;
+  color: $danger;
 }
 form {
   width: 265px;
+}
+.modal {
+   position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.801);
+  z-index: 2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.confirm-text{
+  color: white;
+}
+.yes-btn{
+  margin-right: 35px;
+  @include base-button();
+  width: 80px;
+  color: black;
+}
+.cancel-btn{
+  margin-left: 10px;
+  @include base-button();
+  width: 100px;
+  color: black;
 }

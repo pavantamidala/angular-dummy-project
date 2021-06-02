@@ -68,7 +68,7 @@
     >
       Email required
     </div>
-
+    <input type="text" #edited="ngModel" [(ngModel)]="user.edited" hidden name="edited">
     <br />
     <br />
     <button class="btn submit-btn" type="submit">Submit</button>
@@ -92,5 +92,14 @@
         Delete
       </button>
     </div>
+  </div>
+</div>
+
+<div *ngIf="showModal" (click)="cancelDelete()" class="modal">
+  <h2 class="confirm-text"><b> Do you want to delete the post? </b></h2>
+  <br />
+  <div class="buttons">
+    <button (click)="confirmDelete()" class="yes-btn">Yes</button>
+    <button (click)="cancelDelete()" class="cancel-btn">Cancel</button>
   </div>
 </div>

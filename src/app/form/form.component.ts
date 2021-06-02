@@ -5,7 +5,8 @@ interface User {
   lastName: string;
   number: string;
   email: string;
-  
+  profileImage: any;
+  edited: Boolean;
 }
 @Component({
   selector: 'app-form',
@@ -15,23 +16,35 @@ interface User {
 export class FormComponent implements OnInit {
   constructor() {}
   allUsers: any = [];
-  firstNameFieldValidator: Boolean = false;
-  lastNameFieldValidator: Boolean = false;
-  numberFieldValidator: Boolean = false;
   showValidations: Boolean = true;
+  showModal: Boolean = false;
+  currentPost: any;
+  currentIndex: number;
+
   user: User = {
     firstName: '',
     lastName: '',
     number: null,
     email: '',
+    profileImage: null,
+    edited: false,
   };
 
   date = new Date();
 
   clickHandle(form) {
-    debugger
+    debugger;
     if (form.valid) {
       form.value.id = this.date.getMilliseconds() + Math.random();
+      if (form.value.edited) {
+        this.showValidations = false;
+        form.value.edited = false;
+        this.allUsers.splice(this.currentIndex, 1, form.value);
+        localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+        this.clearFormValues();
+        this.user.edited = false;
+        return;
+      }
       this.allUsers.push(form.value);
       this.clearFormValues();
       localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
@@ -41,23 +54,32 @@ export class FormComponent implements OnInit {
     }
   }
 
-  setInitialLocalStorageData(){
-  const response = localStorage.getItem('allUsersArray');
+  setInitialLocalStorageData() {
+    const response = localStorage.getItem('allUsersArray');
     if (response === null) {
       localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
     }
   }
 
-  getLocalStorageData(){
+  getLocalStorageData() {
     const response = localStorage.getItem('allUsersArray');
     this.allUsers = JSON.parse(response);
   }
-  
+
   ngOnInit() {
     this.setInitialLocalStorageData();
-    this.getLocalStorageData()
+    this.getLocalStorageData();
   }
-
+  confirmDelete() {
+    this.allUsers = this.allUsers.filter((obj) => {
+      return obj.id !== this.currentPost;
+    });
+    localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+    this.showModal = false;
+  }
+  cancelDelete() {
+    this.showModal = false;
+  }
   clearFormValues() {
     this.user.firstName = '';
     this.user.lastName = '';
@@ -66,25 +88,21 @@ export class FormComponent implements OnInit {
   }
 
   deleteHandle(id) {
-    const response = confirm('Do you want to delete the post?');
-    if (response) {
-      this.allUsers = this.allUsers.filter((obj) => {
-        return obj.id !== id;
-      });
-      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
-    }
+    debugger;
+    this.showModal = true;
+    this.currentPost = id;
   }
 
   editHandle(id) {
-    const editedUser = this.allUsers.find((obj) => {
+    debugger;
+    const editedUser = this.allUsers.find((obj, index) => {
+      this.currentIndex = index
       return obj.id === id;
     });
     this.user.firstName = editedUser.firstName;
     this.user.lastName = editedUser.lastName;
     this.user.number = editedUser.number;
     this.user.email = editedUser.email;
-    this.allUsers = this.allUsers.filter((obj) => {
-      return obj.id !== id;
-    });
+    this.user.edited = true;
   }
 }
