@@ -71,13 +71,13 @@ export class FormComponent implements OnInit {
   }
   editHandle(id) {
     console.log(id);
-    const editedUsers = this.allUsers.find((obj) => {
+    const editedUser = this.allUsers.find((obj) => {
       return obj.id === id;
     });
-    this.user.firstName = editedUsers.firstName;
-    this.user.lastName = editedUsers.lastName;
-    this.user.number = editedUsers.number;
-    this.user.email = editedUsers.email;
+    this.user.firstName = editedUser.firstName;
+    this.user.lastName = editedUser.lastName;
+    this.user.number = editedUser.number;
+    this.user.email = editedUser.email;
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== id;
     });
