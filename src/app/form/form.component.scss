@@ -1,0 +1,76 @@
+// colors
+$box-shadow: rgba(0, 0, 0, 0.2);
+$primary: rgb(0, 200, 90);
+$danger: red;
+
+@mixin base-button {
+  border: none;
+  padding: 3px;
+  color: white;
+}
+
+.heading {
+  height: 14px;
+  margin: 5px;
+}
+.user-data {
+  margin-top: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 240px));
+  grid-gap: 15px;
+  justify-content: center;
+}
+label {
+  display: block;
+  font-size: 20px;
+}
+input {
+  padding: 5px;
+}
+.content {
+  display: flex;
+  margin-top: 3%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.card {
+  box-shadow: 0 4px 8px 0 $box-shadow;
+  transition: 0.3s;
+  padding: 6px;
+  margin-top: 10px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 $box-shadow;
+}
+.submit-btn {
+  background-color: $primary;
+  @include base-button();
+  width: 90px;
+  height: 22px;
+}
+.delete-btn {
+  margin-left: 25px;
+  background-color: $danger;
+  @include base-button();
+}
+.edit-btn {
+  background-color: $primary;
+  @include base-button();
+  padding: 3px;
+}
+.placeholder {
+  width: 100%;
+}
+.alert {
+  color: $danger;
+  border: 1px solid red;
+}
+.alert-text {
+  color: red;
+}
+form {
+  width: 265px;
+}

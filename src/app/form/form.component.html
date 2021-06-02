@@ -1,39 +1,96 @@
-
 <div class="content">
-
-    <form #formData="ngForm" validate (ngSubmit)="clickHandle(formData.value)">
-        
-        <label for="firstName">First Name:</label>
-        <input required type="text" name="firstName"  (ngModelChange)="firstNameValidator($event)" #firstName="ngModel" [(ngModel)]="user.firstName" id="firstName"> 
-        <div *ngIf="firstNameFieldValidator"  class="alert">
-                Firs Name is required.
-        </div>
-
-        <label for="lastName">Last Name:</label>
-        <input type="text" #lastName="ngModel" (ngModelChange)="lastNameValidator($event)"  [(ngModel)]="user.lastName" name="lastName" id="lastName">
-        <div *ngIf="lastNameFieldValidator" class="alert">
-            Last Name is required.
-        </div>
-        <label for="number">Ph Number:</label>
-        <input type="number"  #number="ngModel" (ngModelChange)="numberValidator($event)"  [(ngModel)]="user.number" name="number" id="number">
-        <div *ngIf="numberFieldValidator" class="alert">
-            mobile number must be 10 numbers
-        </div>
-        <!-- <label for="image">Profile:</label>
-        <input type="file" name="profileImage" id="image" [(ngModel)]="user.profileImage" #profileImage = "ngModel" > -->
-
-        <label for="email"> Email:</label>
-        <input  required type="email" [(ngModel)]="user.email" name="email" id="email"> <br> <br>
-        <button type="submit">Submit</button>
-    </form>
-    <div class="user-data">
-        <div class="card" *ngFor="let user of allUsers">
-            <img class="placeholder" src="https://via.placeholder.com/150x55" alt="">
-            <h4 class="heading"> <b> {{user.firstName +" "+ user.lastName}} </b></h4>
-            <p> {{user.email}} </p>
-            <p> {{user.number}} </p>
-            <button class="edit-btn" type="submit" (click)="editHandle(user.id)" >Edit</button> 
-            <button type="submit" class="delete-btn" (click)="deleteHandle(user.id)"> Delete </button>
-        </div>
+  <form #formData="ngForm" (ngSubmit)="clickHandle(formData)">
+    <label for="firstName">First Name:</label>
+    <input
+      required
+      type="text"
+      name="firstName"
+      #firstName="ngModel"
+      [(ngModel)]="user.firstName"
+      id="firstName"
+      [class.alert]="formData.submitted && firstName.invalid && showValidations"
+    />
+    <div
+      *ngIf="firstName.invalid && formData.submitted && showValidations"
+      class="alert-text"
+    >
+      First Name is required.
     </div>
+
+    <label for="lastName">Last Name:</label>
+    <input
+      type="text"
+      #lastName="ngModel"
+      required
+      [class.alert]="formData.submitted && lastName.invalid && showValidations"
+      [(ngModel)]="user.lastName"
+      name="lastName"
+      id="lastName"
+    />
+    <div
+      *ngIf="lastName.invalid && formData.submitted && showValidations"
+      class="alert-text"
+    >
+      Last Name is required.
+    </div>
+    <label for="number">Ph Number:</label>
+    <input
+      type="text"
+      required
+      minlength="10"
+      [class.alert]="formData.submitted && number.invalid && showValidations"
+      #number="ngModel"
+      [(ngModel)]="user.number"
+      name="number"
+      maxlength="10"
+      id="number"
+    />
+    <div
+      *ngIf="formData.submitted && number.invalid && showValidations"
+      class="alert-text"
+    >
+      Mobile number required
+    </div>
+
+    <label for="email"> Email:</label>
+    <input
+      required
+      type="email"
+      [(ngModel)]="user.email"
+      [class.alert]="formData.submitted && email.invalid && showValidations"
+      #email="ngModel"
+      name="email"
+      id="email"
+    />
+    <div
+      *ngIf="email.invalid && formData.submitted && showValidations"
+      class="alert-text"
+    >
+      Email required
+    </div>
+
+    <br />
+    <br />
+    <button class="btn submit-btn" type="submit">Submit</button>
+  </form>
+  <div class="user-data">
+    <div class="card" *ngFor="let user of allUsers">
+      <img
+        class="placeholder"
+        src="https://via.placeholder.com/150x55"
+        alt=""
+      />
+      <h3 class="heading">
+        <b> {{ user.firstName + " " + user.lastName }} </b>
+      </h3>
+      <p>{{ user.email }}</p>
+      <p>{{ user.number }}</p>
+      <button class="edit-btn" type="submit" (click)="editHandle(user.id)">
+        Edit
+      </button>
+      <button type="submit" class="delete-btn" (click)="deleteHandle(user.id)">
+        Delete
+      </button>
+    </div>
+  </div>
 </div>
