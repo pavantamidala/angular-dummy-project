@@ -27,39 +27,45 @@ export class FormComponent implements OnInit {
   };
 
   date = new Date();
+
   clickHandle(form) {
-    
+    debugger
     if (form.valid) {
       form.value.id = this.date.getMilliseconds() + Math.random();
       this.allUsers.push(form.value);
-      this.clearingFormValues();
+      this.clearFormValues();
       localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
-      this.storingInLocalStorage();
       this.showValidations = false;
     } else {
       this.showValidations = true;
     }
   }
-  storingInLocalStorage() {
-    const response = localStorage.getItem('allUsersArray');
+
+  setInitialLocalStorageData(){
+  const response = localStorage.getItem('allUsersArray');
     if (response === null) {
       localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
-    } else {
-      const response = localStorage.getItem('allUsersArray');
-      this.allUsers = JSON.parse(response);
     }
   }
-  ngOnInit() {
-    this.storingInLocalStorage();
+
+  getLocalStorageData(){
+    const response = localStorage.getItem('allUsersArray');
+    this.allUsers = JSON.parse(response);
   }
-  clearingFormValues() {
+  
+  ngOnInit() {
+    this.setInitialLocalStorageData();
+    this.getLocalStorageData()
+  }
+
+  clearFormValues() {
     this.user.firstName = '';
     this.user.lastName = '';
     this.user.number = null;
     this.user.email = '';
   }
+
   deleteHandle(id) {
-   
     const response = confirm('Do you want to delete the post?');
     if (response) {
       this.allUsers = this.allUsers.filter((obj) => {
@@ -68,8 +74,8 @@ export class FormComponent implements OnInit {
       localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
     }
   }
+
   editHandle(id) {
-    
     const editedUser = this.allUsers.find((obj) => {
       return obj.id === id;
     });
