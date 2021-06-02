@@ -28,8 +28,7 @@ export class FormComponent implements OnInit {
 
   date = new Date();
   clickHandle(form) {
-    console.log(form);
-    debugger;
+    
     if (form.valid) {
       form.value.id = this.date.getMilliseconds() + Math.random();
       this.allUsers.push(form.value);
@@ -60,7 +59,7 @@ export class FormComponent implements OnInit {
     this.user.email = '';
   }
   deleteHandle(id) {
-    console.log(id);
+   
     const response = confirm('Do you want to delete the post?');
     if (response) {
       this.allUsers = this.allUsers.filter((obj) => {
@@ -70,7 +69,7 @@ export class FormComponent implements OnInit {
     }
   }
   editHandle(id) {
-    console.log(id);
+    
     const editedUser = this.allUsers.find((obj) => {
       return obj.id === id;
     });
