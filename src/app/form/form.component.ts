@@ -6,7 +6,7 @@ interface User {
   number: string;
   email: string;
   profileImage: any;
-  edited: Boolean;
+  
 }
 @Component({
   selector: 'app-form',
@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
   showModal: Boolean = false;
   currentPost: any;
   currentIndex: number;
+  edited=false;
 
   user: User = {
     firstName: '',
@@ -27,7 +28,7 @@ export class FormComponent implements OnInit {
     number: null,
     email: '',
     profileImage: null,
-    edited: false,
+   
   };
 
   date = new Date();
@@ -36,18 +37,18 @@ export class FormComponent implements OnInit {
     debugger;
     if (form.valid) {
       form.value.id = this.date.getMilliseconds() + Math.random();
-      if (form.value.edited) {
+      if (this.edited) {
         this.showValidations = false;
         form.value.edited = false;
         this.allUsers.splice(this.currentIndex, 1, form.value);
-        localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+        this.setDataToLocalStorage(this.allUsers);
         this.clearFormValues();
-        this.user.edited = false;
+        this.edited = false
         return;
       }
       this.allUsers.push(form.value);
       this.clearFormValues();
-      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+      this.setDataToLocalStorage(this.allUsers);
       this.showValidations = false;
     } else {
       this.showValidations = true;
@@ -57,8 +58,12 @@ export class FormComponent implements OnInit {
   setInitialLocalStorageData() {
     const response = localStorage.getItem('allUsersArray');
     if (response === null) {
-      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+      this.setDataToLocalStorage(this.allUsers);
     }
+  }
+
+  setDataToLocalStorage(users) {
+    localStorage.setItem('allUsersArray', JSON.stringify(users));
   }
 
   getLocalStorageData() {
@@ -75,7 +80,7 @@ export class FormComponent implements OnInit {
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== this.currentPost;
     });
-    localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+    this.setDataToLocalStorage(this.allUsers);
     this.showModal = false;
   }
 
@@ -119,6 +124,6 @@ export class FormComponent implements OnInit {
     this.user.lastName = editedUser.lastName;
     this.user.number = editedUser.number;
     this.user.email = editedUser.email;
-    this.user.edited = true;
+    this.edited = true;
   }
 }

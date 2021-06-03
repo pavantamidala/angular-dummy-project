@@ -7,6 +7,7 @@ $danger: red;
   border: none;
   padding: 5px;
   color: white;
+  cursor: pointer;
 }
 
 .heading {
@@ -49,11 +50,11 @@ input {
   background-color: $primary;
   @include base-button();
   width: 90px;
-  height: 22px;
+  height: 25px;
 }
 .delete-btn {
   margin-left: 25px;
-  width: 90px;
+  width: 75px;
   background-color: $danger;
   @include base-button();
 }
@@ -85,7 +86,6 @@ form {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.801);
   z-index: 2;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,6 +103,6 @@ form {
 .cancel-btn {
   margin-left: 10px;
   @include base-button();
-  width: 100px;
+  width: 80px;
   color: black;
 }
