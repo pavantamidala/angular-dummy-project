@@ -88,6 +88,7 @@ export class FormComponent implements OnInit {
     this.user.lastName = '';
     this.user.number = null;
     this.user.email = '';
+    this.user.profileImage = null;
   }
 
   deleteHandle(id) {
