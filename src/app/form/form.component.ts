@@ -6,6 +6,7 @@ interface User {
   number: string;
   email: string;
   profileImage: any;
+  profileImageName: any;
 }
 @Component({
   selector: 'app-form',
@@ -22,13 +23,14 @@ export class FormComponent implements OnInit {
   currentIndex: number;
   edited = false;
   currentImage: any;
-
+  currentProfileImageName: string;
   user: User = {
     firstName: '',
     lastName: '',
     number: null,
     email: '',
     profileImage: null,
+    profileImageName: '',
   };
 
   clickHandle(form) {
@@ -94,6 +96,8 @@ export class FormComponent implements OnInit {
   }
 
   fileChangeEvent(e) {
+    debugger;
+    this.user.profileImageName = e.target.files[0].name;
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.addEventListener('loadend', this.setCurrentImage.bind(this, reader));
@@ -109,6 +113,7 @@ export class FormComponent implements OnInit {
   }
 
   editHandle(id) {
+    debugger;
     const editedUser = this.allUsers.find((obj, index) => {
       this.currentIndex = index;
       return obj.id === id;
@@ -117,6 +122,8 @@ export class FormComponent implements OnInit {
     this.user.lastName = editedUser.lastName;
     this.user.number = editedUser.number;
     this.user.email = editedUser.email;
+    this.user.profileImage = editedUser.profileImage;
+    // this.currentProfileImageName = this.user.profileImageName
     this.edited = true;
   }
 }
