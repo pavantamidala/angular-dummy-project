@@ -70,6 +70,7 @@ export class FormComponent implements OnInit {
     this.setInitialLocalStorageData();
     this.getLocalStorageData();
   }
+  
   confirmDelete() {
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== this.currentPost;
@@ -77,9 +78,11 @@ export class FormComponent implements OnInit {
     localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
     this.showModal = false;
   }
+
   cancelDelete() {
     this.showModal = false;
   }
+
   clearFormValues() {
     this.user.firstName = '';
     this.user.lastName = '';
@@ -96,7 +99,7 @@ export class FormComponent implements OnInit {
   editHandle(id) {
     debugger;
     const editedUser = this.allUsers.find((obj, index) => {
-      this.currentIndex = index
+      this.currentIndex = index;
       return obj.id === id;
     });
     this.user.firstName = editedUser.firstName;
