@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
     this.setInitialLocalStorageData();
     this.getLocalStorageData();
   }
-  
+
   confirmDelete() {
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== this.currentPost;
