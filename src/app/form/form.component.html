@@ -69,7 +69,7 @@
       Email required
     </div>
     <br />
-    <label for="profileImage">Profile Image</label>
+    <label for="profileImage">Profile Image:</label>
     <input
       type="file"
       #profileImage="ngModel"
@@ -108,10 +108,12 @@
 </div>
 
 <div *ngIf="showModal" (click)="cancelDelete()" class="modal">
-  <h2 class="confirm-text"><b> Do you want to delete the post? </b></h2>
-  <br />
-  <div class="buttons">
-    <button (click)="confirmDelete()" class="yes-btn">Yes</button>
-    <button (click)="cancelDelete()" class="cancel-btn">Cancel</button>
+  <div class="border-modal">
+    <h2 class="confirm-text"><b> Do you want to delete the post? </b></h2>
+    <br />
+    <div class="buttons">
+      <button (click)="confirmDelete()" class="yes-btn">Yes</button>
+      <button (click)="cancelDelete()" class="cancel-btn">Cancel</button>
+    </div>
   </div>
 </div>
