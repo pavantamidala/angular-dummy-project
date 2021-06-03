@@ -6,7 +6,7 @@ interface User {
   number: string;
   email: string;
   profileImage: any;
-  
+ 
 }
 @Component({
   selector: 'app-form',
@@ -15,35 +15,35 @@ interface User {
 })
 export class FormComponent implements OnInit {
   constructor() {}
+  date = new Date();
   allUsers: any = [];
   showValidations: Boolean = true;
   showModal: Boolean = false;
   currentPost: any;
   currentIndex: number;
-  edited=false;
+  edited = false;
+  currentImage:any;
+
 
   user: User = {
     firstName: '',
     lastName: '',
     number: null,
     email: '',
-    profileImage: null,
-   
+    profileImage: null
   };
 
-  date = new Date();
 
   clickHandle(form) {
-    debugger;
     if (form.valid) {
+      form.value.profileImage = this.currentImage
       form.value.id = this.date.getMilliseconds() + Math.random();
       if (this.edited) {
         this.showValidations = false;
-        form.value.edited = false;
         this.allUsers.splice(this.currentIndex, 1, form.value);
         this.setDataToLocalStorage(this.allUsers);
         this.clearFormValues();
-        this.edited = false
+        this.edited = false;
         return;
       }
       this.allUsers.push(form.value);
@@ -96,26 +96,23 @@ export class FormComponent implements OnInit {
     this.user.profileImage = null;
   }
 
-  fileChange(e){
-    debugger
-    console.log(e)
-    let that = this.user
-    let reader = new FileReader()
-    reader.readAsDataURL(e.target.files[0])
-    reader.onloadend = function(){
-      debugger
-      that.profileImage = reader.result
-    }
+  fileChangeEvent(e){
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.addEventListener("loadend",this.setCurrentImage.bind(this,reader))
+  }
+
+  setCurrentImage(reader){
+    this.currentImage = reader.result
   }
 
   deleteHandle(id) {
-    debugger;
+  
     this.showModal = true;
     this.currentPost = id;
   }
 
   editHandle(id) {
-    debugger;
     const editedUser = this.allUsers.find((obj, index) => {
       this.currentIndex = index;
       return obj.id === id;
