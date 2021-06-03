@@ -68,18 +68,30 @@
     >
       Email required
     </div>
-    <input type="text" #edited="ngModel" [(ngModel)]="user.edited" hidden name="edited">
+    <br />
+    <label for="profileImage">Profile Image</label>
+    <input
+      type="file"
+      #profileImage="ngModel"
+      [(ngModel)]="user.profileImage"
+      name="profileImage"
+      id="profileImage"
+      (change)="fileChangeEvent($event)"
+      required
+    />
+    <div
+      *ngIf="profileImage.invalid && formData.submitted && showValidations"
+      class="alert-text"
+    >
+      Profile image required
+    </div>
     <br />
     <br />
     <button class="btn submit-btn" type="submit">Submit</button>
   </form>
   <div class="user-data">
     <div class="card" *ngFor="let user of allUsers">
-      <img
-        class="placeholder"
-        src="https://via.placeholder.com/150x55"
-        alt=""
-      />
+      <img class="placeholder" [src]="user.profileImage" alt="" />
       <h3 class="heading">
         <b> {{ user.firstName + " " + user.lastName }} </b>
       </h3>
