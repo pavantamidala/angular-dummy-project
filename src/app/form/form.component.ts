@@ -40,14 +40,14 @@ export class FormComponent implements OnInit {
         this.showValidations = false;
         form.value.edited = false;
         this.allUsers.splice(this.currentIndex, 1, form.value);
-        localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+        this.setDataToLocalStorage(this.allUsers);
         this.clearFormValues();
         this.user.edited = false;
         return;
       }
       this.allUsers.push(form.value);
       this.clearFormValues();
-      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+      this.setDataToLocalStorage(this.allUsers);
       this.showValidations = false;
     } else {
       this.showValidations = true;
@@ -57,8 +57,12 @@ export class FormComponent implements OnInit {
   setInitialLocalStorageData() {
     const response = localStorage.getItem('allUsersArray');
     if (response === null) {
-      localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+      this.setDataToLocalStorage(this.allUsers);
     }
+  }
+
+  setDataToLocalStorage(users) {
+    localStorage.setItem('allUsersArray', JSON.stringify(users));
   }
 
   getLocalStorageData() {
@@ -70,12 +74,12 @@ export class FormComponent implements OnInit {
     this.setInitialLocalStorageData();
     this.getLocalStorageData();
   }
-  
+
   confirmDelete() {
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== this.currentPost;
     });
-    localStorage.setItem('allUsersArray', JSON.stringify(this.allUsers));
+    this.setDataToLocalStorage(this.allUsers);
     this.showModal = false;
   }
 
