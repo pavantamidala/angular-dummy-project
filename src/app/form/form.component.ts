@@ -6,7 +6,6 @@ interface User {
   number: string;
   email: string;
   profileImage: any;
- 
 }
 @Component({
   selector: 'app-form',
@@ -22,21 +21,19 @@ export class FormComponent implements OnInit {
   currentPost: any;
   currentIndex: number;
   edited = false;
-  currentImage:any;
-
+  currentImage: any;
 
   user: User = {
     firstName: '',
     lastName: '',
     number: null,
     email: '',
-    profileImage: null
+    profileImage: null,
   };
-
 
   clickHandle(form) {
     if (form.valid) {
-      form.value.profileImage = this.currentImage
+      form.value.profileImage = this.currentImage;
       form.value.id = this.date.getMilliseconds() + Math.random();
       if (this.edited) {
         this.showValidations = false;
@@ -96,18 +93,17 @@ export class FormComponent implements OnInit {
     this.user.profileImage = null;
   }
 
-  fileChangeEvent(e){
+  fileChangeEvent(e) {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
-    reader.addEventListener("loadend",this.setCurrentImage.bind(this,reader))
+    reader.addEventListener('loadend', this.setCurrentImage.bind(this, reader));
   }
 
-  setCurrentImage(reader){
-    this.currentImage = reader.result
+  setCurrentImage(reader) {
+    this.currentImage = reader.result;
   }
 
   deleteHandle(id) {
-  
     this.showModal = true;
     this.currentPost = id;
   }

@@ -77,10 +77,14 @@
       name="profileImage"
       id="profileImage"
       (change)="fileChangeEvent($event)"
-        required  />
-<div *ngIf="profileImage.invalid && formData.submitted && showValidations" class="alert-text">
-  Profile image required
-</div>
+      required
+    />
+    <div
+      *ngIf="profileImage.invalid && formData.submitted && showValidations"
+      class="alert-text"
+    >
+      Profile image required
+    </div>
     <br />
     <br />
     <button class="btn submit-btn" type="submit">Submit</button>
