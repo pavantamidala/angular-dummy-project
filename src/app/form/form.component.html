@@ -76,7 +76,8 @@
       [(ngModel)]="user.profileImage"
       name="profileImage"
       id="profileImage"
-    />
+      (change)="fileChange($event)"
+          />
     <input
       type="text"
       #edited="ngModel"
@@ -90,7 +91,7 @@
   </form>
   <div class="user-data">
     <div class="card" *ngFor="let user of allUsers">
-      <img class="placeholder" src="user.profileImage" alt="" />
+      <img class="placeholder" [src]="user.profileImage" alt="" />
       <h3 class="heading">
         <b> {{ user.firstName + " " + user.lastName }} </b>
       </h3>

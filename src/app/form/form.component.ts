@@ -91,6 +91,18 @@ export class FormComponent implements OnInit {
     this.user.profileImage = null;
   }
 
+  fileChange(e){
+    debugger
+    console.log(e)
+    let that = this.user
+    let reader = new FileReader()
+    reader.readAsDataURL(e.target.files[0])
+    reader.onloadend = function(){
+      debugger
+      that.profileImage = reader.result
+    }
+  }
+
   deleteHandle(id) {
     debugger;
     this.showModal = true;
