@@ -93,11 +93,16 @@
         <b> {{ user.firstName + " " + user.lastName }} </b>
       </h3>
       <p class="email">{{ user.email }}</p>
-      <p class="number" >{{ user.number }}</p>
+      <p class="number">{{ user.number }}</p>
       <button class="edit-btn" type="submit" (click)="editHandle(user.id)">
         Edit
       </button>
-      <button type="submit" [disabled]="" class="delete-btn" (click)="deleteHandle(user.id)">
+      <button
+        type="submit"
+        [disabled]=""
+        class="delete-btn"
+        (click)="deleteHandle(user.id)"
+      >
         Delete
       </button>
     </div>

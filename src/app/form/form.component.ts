@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
     profileImageName: '',
   };
 
-  clickHandle(form):void {
+  clickHandle(form): void {
     debugger;
     if (form.valid) {
       form.value.id = this.date.getMilliseconds() + Math.random();
@@ -61,20 +61,20 @@ export class FormComponent implements OnInit {
     }
   }
 
-  setPreviousImageToForm(form):void {
+  setPreviousImageToForm(form): void {
     form.value.profileImage = this.imageDetails.image;
     form.value.profileImageName = this.imageDetails.name;
   }
 
-  setImageToForm(form):void {
-    debugger
-    if(this.currentImage && this.currentProfileImageName){
+  setImageToForm(form): void {
+    debugger;
+    if (this.currentImage && this.currentProfileImageName) {
       form.value.profileImage = this.currentImage;
       form.value.profileImageName = this.currentProfileImageName;
     }
   }
 
-  saveEditedImage(form):void {
+  saveEditedImage(form): void {
     this.showValidations = false;
     this.allUsers.splice(this.currentIndex, 1, form.value);
     this.setDataToLocalStorage(this.allUsers);
@@ -86,7 +86,7 @@ export class FormComponent implements OnInit {
     this.showCurrentFile = false;
   }
 
-  saveImage(form):void {
+  saveImage(form): void {
     this.allUsers.push(form.value);
     this.clearFormValues();
     this.setDataToLocalStorage(this.allUsers);
@@ -96,18 +96,18 @@ export class FormComponent implements OnInit {
     this.imageDetails.name = '';
   }
 
-  setInitialLocalStorageData():void {
+  setInitialLocalStorageData(): void {
     const response = localStorage.getItem('allUsersArray');
     if (response === null) {
       this.setDataToLocalStorage(this.allUsers);
     }
   }
 
-  setDataToLocalStorage(users:[]):void {
+  setDataToLocalStorage(users: []): void {
     localStorage.setItem('allUsersArray', JSON.stringify(users));
   }
 
-  getLocalStorageData():void {
+  getLocalStorageData(): void {
     const response = localStorage.getItem('allUsersArray');
     this.allUsers = JSON.parse(response);
   }
@@ -117,7 +117,7 @@ export class FormComponent implements OnInit {
     this.getLocalStorageData();
   }
 
-  confirmDelete():void {
+  confirmDelete(): void {
     this.allUsers = this.allUsers.filter((obj) => {
       return obj.id !== this.currentPost;
     });
@@ -125,11 +125,11 @@ export class FormComponent implements OnInit {
     this.showModal = false;
   }
 
-  cancelDelete():void {
+  cancelDelete(): void {
     this.showModal = false;
   }
 
-  clearFormValues():void {
+  clearFormValues(): void {
     this.user.firstName = '';
     this.user.lastName = '';
     this.user.number = null;
@@ -137,9 +137,9 @@ export class FormComponent implements OnInit {
     this.user.profileImage = null;
   }
 
-  fileChangeEvent(e:any):void {
+  fileChangeEvent(e: any): void {
     debugger;
-    this.disableButton = true
+    this.disableButton = true;
     this.currentProfileImageName = e.target.files[0].name;
     this.showCurrentFile = false;
     let reader = new FileReader();
@@ -147,17 +147,17 @@ export class FormComponent implements OnInit {
     reader.addEventListener('loadend', this.setCurrentImage.bind(this, reader));
   }
 
-  setCurrentImage(reader:any):void {
-    this.disableButton = false
+  setCurrentImage(reader: any): void {
+    this.disableButton = false;
     this.currentImage = reader.result;
   }
 
-  deleteHandle(id:Number):void {
+  deleteHandle(id: Number): void {
     this.showModal = true;
     this.currentPost = id;
   }
 
-  editHandle(id:Number):void {
+  editHandle(id: Number): void {
     debugger;
     const editedUser = this.allUsers.find((obj, index) => {
       this.currentIndex = index;
