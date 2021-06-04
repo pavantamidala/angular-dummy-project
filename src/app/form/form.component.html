@@ -79,14 +79,9 @@
       (change)="fileChangeEvent($event)"
     />
     <span *ngIf="showCurrentFile">
-      <b>Currently:</b> {{ imageDetails.name }}
+      <b>Currently:</b> <span class="currently"> {{ imageDetails.name }} </span>
     </span>
-    <div
-      *ngIf="profileImage.invalid && formData.submitted && showValidations"
-      class="alert-text"
-    >
-      Profile image required
-    </div>
+
     <br />
     <br />
     <button class="btn submit-btn" type="submit">Submit</button>
@@ -97,12 +92,17 @@
       <h3 class="heading">
         <b> {{ user.firstName + " " + user.lastName }} </b>
       </h3>
-      <p>{{ user.email }}</p>
-      <p>{{ user.number }}</p>
+      <p class="email">{{ user.email }}</p>
+      <p class="number">{{ user.number }}</p>
       <button class="edit-btn" type="submit" (click)="editHandle(user.id)">
         Edit
       </button>
-      <button type="submit" class="delete-btn" (click)="deleteHandle(user.id)">
+      <button
+        type="submit"
+        [disabled]=""
+        class="delete-btn"
+        (click)="deleteHandle(user.id)"
+      >
         Delete
       </button>
     </div>

@@ -39,12 +39,12 @@ input {
 .card {
   box-shadow: 0 4px 8px 0 $box-shadow;
   transition: 0.3s;
-  padding: 6px;
+  padding: 10px;
   margin-top: 10px;
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 $box-shadow;
+  box-shadow: 0 8px 16px 0 rgb(0, 0, 20%);
 }
 .submit-btn {
   background-color: $primary;
@@ -86,28 +86,29 @@ form {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.801);
   z-index: 2;
-  
 }
 
 .confirm-text {
-  color: white;
-  justify-self: center
+  justify-self: center;
 }
 .yes-btn {
   margin-right: 35px;
   @include base-button();
   width: 80px;
-  color: black;
+  color: white;
+  background-color: black;
 }
 .cancel-btn {
   margin-left: 10px;
   @include base-button();
   width: 80px;
-  color: black;
+  color: white;
+  background-color: black;
 }
 img {
   width: 220px;
-  height: 95px;
+  height: 200px;
+  border: 1px solid gray;
 }
 .buttons {
   grid-row-start: 2;
@@ -119,10 +120,26 @@ img {
   grid-auto-flow: row;
   height: 120px;
   min-width: 250px;
-  max-width: 350px;
+  max-width: 420px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  top:38%;
-  border: 1px solid white;
+  top: 38%;
+  border: 1px solid green;
+  background-color: white;
+  color: black;
+}
+.currently {
+  color: gray;
+}
+.heading {
+  margin: 0;
+}
+.email {
+  margin-top: 11px;
+  margin-bottom: 6px;
+}
+.number {
+  margin-top: 3px;
+  margin-bottom: 6px;
 }
