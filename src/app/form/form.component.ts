@@ -6,7 +6,7 @@ interface User {
   number: string;
   email: string;
   profileImage: any;
-  profileImageName: any;
+  profileImageName: string;
 }
 @Component({
   selector: 'app-form',
@@ -17,6 +17,10 @@ export class FormComponent implements OnInit {
   constructor() {}
   date = new Date();
   allUsers: any = [];
+  imageDetails = {
+    image: '',
+    name: '',
+  };
   showValidations: Boolean = true;
   showModal: Boolean = false;
   currentPost: any;
@@ -24,6 +28,7 @@ export class FormComponent implements OnInit {
   edited = false;
   currentImage: any;
   currentProfileImageName: string;
+  showCurrentFile: Boolean;
   user: User = {
     firstName: '',
     lastName: '',
@@ -34,24 +39,57 @@ export class FormComponent implements OnInit {
   };
 
   clickHandle(form) {
+    debugger;
     if (form.valid) {
-      form.value.profileImage = this.currentImage;
       form.value.id = this.date.getMilliseconds() + Math.random();
       if (this.edited) {
-        this.showValidations = false;
-        this.allUsers.splice(this.currentIndex, 1, form.value);
-        this.setDataToLocalStorage(this.allUsers);
-        this.clearFormValues();
-        this.edited = false;
-        return;
+        if (!this.currentImage) {
+          this.setPreviousImageToForm(form);
+          this.saveEditedImage(form);
+          return;
+        } else {
+          this.setImageToForm(form);
+          this.saveEditedImage(form);
+          return;
+        }
       }
-      this.allUsers.push(form.value);
-      this.clearFormValues();
-      this.setDataToLocalStorage(this.allUsers);
-      this.showValidations = false;
+      this.setImageToForm(form);
+      this.saveImage(form);
     } else {
       this.showValidations = true;
     }
+  }
+
+  setPreviousImageToForm(form) {
+    form.value.profileImage = this.imageDetails.image;
+    form.value.profileImageName = this.imageDetails.name;
+  }
+
+  setImageToForm(form) {
+    form.value.profileImage = this.currentImage;
+    form.value.profileImageName = this.currentProfileImageName;
+  }
+
+  saveEditedImage(form) {
+    this.showValidations = false;
+    this.allUsers.splice(this.currentIndex, 1, form.value);
+    this.setDataToLocalStorage(this.allUsers);
+    this.clearFormValues();
+    this.edited = false;
+    this.currentImage = '';
+    this.imageDetails.image = '';
+    this.imageDetails.name = '';
+    this.showCurrentFile = false;
+  }
+
+  saveImage(form) {
+    this.allUsers.push(form.value);
+    this.clearFormValues();
+    this.setDataToLocalStorage(this.allUsers);
+    this.showValidations = false;
+    this.currentImage = '';
+    this.imageDetails.image = '';
+    this.imageDetails.name = '';
   }
 
   setInitialLocalStorageData() {
@@ -97,7 +135,8 @@ export class FormComponent implements OnInit {
 
   fileChangeEvent(e) {
     debugger;
-    this.user.profileImageName = e.target.files[0].name;
+    this.currentProfileImageName = e.target.files[0].name;
+    this.showCurrentFile = false;
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.addEventListener('loadend', this.setCurrentImage.bind(this, reader));
@@ -122,8 +161,9 @@ export class FormComponent implements OnInit {
     this.user.lastName = editedUser.lastName;
     this.user.number = editedUser.number;
     this.user.email = editedUser.email;
-    this.user.profileImage = editedUser.profileImage;
-    // this.currentProfileImageName = this.user.profileImageName
+    this.imageDetails.image = editedUser.profileImage;
+    this.imageDetails.name = editedUser.profileImageName;
+    this.showCurrentFile = true;
     this.edited = true;
   }
 }

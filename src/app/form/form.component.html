@@ -77,8 +77,10 @@
       name="profileImage"
       id="profileImage"
       (change)="fileChangeEvent($event)"
-      required
     />
+    <span *ngIf="showCurrentFile">
+      <b>Currently:</b> {{ imageDetails.name }}
+    </span>
     <div
       *ngIf="profileImage.invalid && formData.submitted && showValidations"
       class="alert-text"
