@@ -41,11 +41,11 @@ input {
   transition: 0.3s;
   padding: 10px;
   margin-top: 10px;
-  // border: 1px solid gray;
+ 
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 $box-shadow;
+  box-shadow: 0 8px 16px 0 rgb(0,0,20%);
 }
 .submit-btn {
   background-color: $primary;
